@@ -69,11 +69,19 @@
   .hint{ color:var(--muted); font-size:14px; margin-top:10px; text-align:center; }
   .tiles{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px; margin-top:14px; }
   .tile{
-    position:relative; text-align:left; min-height:64px; padding:12px 40px 12px 14px;
+    position:relative; text-align:left; min-height:64px; padding:10px 40px 10px 10px;
+    display:flex; align-items:center; gap:10px;
     border-radius:14px; border:1px solid var(--panel-border); background:rgb(255 255 255 / .03);
     color:var(--text); font-size:15px; line-height:1.35; cursor:pointer;
     transition:transform .15s ease-out, background-color .15s ease-out, border-color .15s ease-out;
   }
+  .gicon{
+    flex:0 0 46px; width:46px; height:46px; border-radius:10px;
+    background:rgb(255 255 255 / .09); border:1px solid rgb(255 255 255 / .07);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .gicon svg{ width:37px; height:37px; display:block; }
+  .ttext{ flex:1; min-width:0; }
   .tile:active{ transform:scale(.97); }
   .tile .n{ display:block; font-size:12.5px; color:var(--muted); margin-top:3px; font-variant-numeric:tabular-nums; }
   .tile.packed{ background:var(--acc-soft); border-color:var(--acc); }
@@ -114,6 +122,32 @@
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="g-shirt"><path d="M17 6 L23 3 Q24 6 25 3 L31 6 L41 13 L36 20 L36 43 L12 43 L12 20 L7 13 Z" fill="currentColor"/><path d="M20 4 L24 10 L28 4 L26 3 L24 6 L22 3 Z" fill="rgb(0 0 0 / .25)"/><path d="M24 12 V41" stroke="rgb(0 0 0 / .25)" stroke-width="1.6"/></g>
+    <g id="g-tshirt"><path d="M17 7 L23 4 Q24 7 25 4 L31 7 L42 14 L37 22 L34 19 L34 43 L14 43 L14 19 L11 22 L6 14 Z" fill="currentColor"/></g>
+    <g id="g-longsleeve"><path d="M16 5 L32 5 L39 10 L42 32 L36 33 L36 43 L12 43 L12 33 L6 32 L9 10 Z" fill="currentColor"/></g>
+    <g id="g-turtleneck"><rect x="19" y="2" width="10" height="6" rx="2" fill="currentColor"/><path d="M16 9 L32 9 L39 14 L42 34 L36 35 L36 44 L12 44 L12 35 L6 34 L9 14 Z" fill="currentColor"/></g>
+    <g id="g-sweatshirt"><path d="M16 5 L32 5 L39 10 L42 32 L36 33 L36 43 L12 43 L12 33 L6 32 L9 10 Z" fill="currentColor"/><path d="M13 39 H35" stroke="rgb(0 0 0 / .25)" stroke-width="1.6"/></g>
+    <g id="g-hoodie"><path d="M17 11 Q24 1 31 11 L38 15 L41 32 L35 33 L35 43 L13 43 L13 33 L7 32 L10 15 Z" fill="currentColor"/><path d="M18 12 Q24 5 30 12" fill="none" stroke="rgb(0 0 0 / .3)" stroke-width="2"/><rect x="18" y="33" width="12" height="7" rx="1.5" fill="rgb(0 0 0 / .18)"/></g>
+    <g id="g-pants"><path d="M14 5 L34 5 L37 43 L29 43 L24 16 L19 43 L11 43 Z" fill="currentColor"/><path d="M14 10 H34" stroke="rgb(0 0 0 / .25)" stroke-width="1.6"/></g>
+    <g id="g-sweatpants"><path d="M14 5 L34 5 L37 43 L29 43 L24 16 L19 43 L11 43 Z" fill="currentColor"/><path d="M14 10 H34 M12 38 H19 M29 38 H36" stroke="rgb(0 0 0 / .28)" stroke-width="1.8"/></g>
+    <g id="g-shorts"><path d="M13 8 L35 8 L38 30 L28 30 L24 20 L20 30 L10 30 Z" fill="currentColor"/><path d="M13 13 H35" stroke="rgb(0 0 0 / .25)" stroke-width="1.6"/></g>
+    <g id="g-coat"><path d="M17 5 L31 5 L36 12 L36 45 L12 45 L12 12 Z" fill="currentColor"/><path d="M19 6 L24 16 L29 6 M12 30 H36" stroke="rgb(0 0 0 / .25)" stroke-width="1.6" fill="none"/></g>
+    <g id="g-jacket"><path d="M17 6 L31 6 L38 12 L39 30 L35 31 L35 43 L13 43 L13 31 L9 30 L10 12 Z" fill="currentColor"/><path d="M24 8 V41" stroke="rgb(0 0 0 / .28)" stroke-width="1.8"/></g>
+    <g id="g-puffer"><path d="M17 6 L31 6 L38 12 L39 30 L35 31 L35 43 L13 43 L13 31 L9 30 L10 12 Z" fill="currentColor"/><path d="M13 18 H35 M13 27 H35 M13 36 H35 M24 8 V41" stroke="rgb(0 0 0 / .22)" stroke-width="1.6"/></g>
+    <g id="g-shacket"><path d="M17 6 L31 6 L38 12 L39 30 L35 31 L35 43 L13 43 L13 31 L9 30 L10 12 Z" fill="currentColor"/><path d="M20 8 V41 M28 8 V41 M13 20 H35 M13 31 H35" stroke="rgb(232 220 192 / .45)" stroke-width="1.6"/></g>
+    <g id="g-panjabi"><path d="M18 5 L30 5 L37 11 L38 26 L34 26 L34 45 L14 45 L14 26 L10 26 L11 11 Z" fill="currentColor"/><rect x="19" y="12" width="10" height="13" rx="1.5" fill="rgb(0 0 0 / .18)"/><path d="M21 5 L24 10 L27 5" fill="none" stroke="rgb(0 0 0 / .3)" stroke-width="1.6"/></g>
+    <g id="g-scarf"><path d="M9 9 Q24 2 39 9 L37 17 Q24 11 11 17 Z" fill="currentColor"/><path d="M30 15 L38 15 L37 39 L31 39 Z" fill="currentColor"/></g>
+    <g id="g-scarf2"><path d="M9 9 Q24 2 39 9 L37 17 Q24 11 11 17 Z" fill="currentColor"/><path d="M30 15 L38 15 L37 39 L31 39 Z" fill="currentColor"/><rect x="30.6" y="24" width="6.8" height="6" fill="#1c1c1e"/></g>
+    <g id="g-socks"><path d="M18 4 L27 4 L27 19 L33 27 Q37 32 32 36 Q27 40 21 34 L18 30 Z" fill="currentColor"/><path d="M18 10 H27" stroke="rgb(0 0 0 / .25)" stroke-width="1.6"/></g>
+    <g id="g-underwear"><path d="M10 12 L38 12 L36 27 Q24 33 12 27 Z" fill="currentColor"/><path d="M10 17 H38" stroke="rgb(0 0 0 / .25)" stroke-width="1.6"/></g>
+    <g id="g-sleeveless"><path d="M16 5 L21 5 Q21 12 24 12 Q27 12 27 5 L32 5 L34 14 L34 43 L14 43 L14 14 Z" fill="currentColor"/></g>
+    <g id="g-shoe"><path d="M6 31 Q6 23 14 21 L24 19 Q30 18 34 23 L42 29 Q44 31 43 35 L42 38 L6 38 Z" fill="currentColor"/><path d="M6 35 H43" stroke="rgb(0 0 0 / .3)" stroke-width="1.8"/></g>
+    <g id="g-sneaker"><path d="M6 30 Q6 22 14 20 L24 18 Q30 17 34 22 L42 28 Q44 30 43 34 L42 36 L6 36 Z" fill="currentColor"/><rect x="5" y="36" width="39" height="5" rx="2" fill="currentColor"/><path d="M20 21 L27 26 M24 19 L31 24" stroke="rgb(0 0 0 / .3)" stroke-width="1.6"/></g>
+    <g id="g-sandal"><path d="M8 35 Q24 29 40 35 L40 40 L8 40 Z" fill="currentColor"/><path d="M16 34 Q20 24 24 33 Q28 24 32 34" fill="none" stroke="currentColor" stroke-width="3"/></g>
+  </defs>
+</svg>
 <div class="wrap">
   <h1>Packing for Bangladesh</h1>
   <p class="sub">Dec 4 – Jan 16. Tap your name, tap everything you've packed, then tap Save. Your ticks are saved so we can both see what's done.</p>
@@ -177,6 +211,56 @@ var SECTIONS = [
     items:[ "Sandals · buy in BD", "White shoes · buy in BD" ] }
 ];
 
+/* Garment illustration per item: [icon, true color]. Display only — the
+   saved values stay the labels above. */
+var META = {
+  "Dress shirt · cream ×1": ["shirt", "#e8dcc0"],
+  "Dress shirt · red ×1": ["shirt", "#b03a2e"],
+  "Dress shirt · light gray ×1": ["shirt", "#c9ccd1"],
+  "Dress shirt · black ×1 (needs finding)": ["shirt", "#232326"],
+  "Full-sleeve top · white ×1": ["longsleeve", "#f2f2f2"],
+  "Full-sleeve top · black ×1": ["longsleeve", "#232326"],
+  "T-shirt · white ×1": ["tshirt", "#f2f2f2"],
+  "T-shirt · black ×1": ["tshirt", "#232326"],
+  "T-shirt · gray ×1": ["tshirt", "#8a8f98"],
+  "T-shirt · cream-yellow ×1": ["tshirt", "#ead9ae"],
+  "Sleep shorts ×2": ["shorts", "#5b6b82"],
+  "Scarf · brown shades ×1": ["scarf", "#6b4a2f"],
+  "Turtleneck · cream ×1": ["turtleneck", "#e8dcc0"],
+  "Pants · white ×1": ["pants", "#f2f2f2"],
+  "Pants · cream ×1": ["pants", "#e8dcc0"],
+  "Pants · brown ×1": ["pants", "#6b4a2f"],
+  "Dress pants · green (wedding) ×1": ["pants", "#2e5e3a"],
+  "Dress pants · blue ×1": ["pants", "#2c4a7c"],
+  "Panjabi · Jumu'ah slate blue-gray ×1": ["panjabi", "#5e6e82"],
+  "Brown long coat ×1": ["coat", "#6b4226"],
+  "Denim jacket · light blue ×1": ["jacket", "#7fa8c9"],
+  "Plaid shacket ×1": ["shacket", "#77754f"],
+  "White HUGO puffer ×1": ["puffer", "#f2f2f2"],
+  "Shoes · brown loafers ×1": ["shoe", "#8a5a33"],
+  "Shoes · black dress shoe ×1": ["shoe", "#232326"],
+  "Full-sleeve top · reddish brown ×1": ["longsleeve", "#5e2a1e"],
+  "Sweatshirt · green ×1": ["sweatshirt", "#2e7d4f"],
+  "Sweatshirt · red ×1": ["sweatshirt", "#b03a2e"],
+  "Turtleneck · black ×1": ["turtleneck", "#232326"],
+  "Sweatpants · gray ×1": ["sweatpants", "#8a8f98"],
+  "Sweatpants · gray wool-lined ×1": ["sweatpants", "#62666c"],
+  "Sweatpants · black ×3": ["sweatpants", "#232326"],
+  "Black khakis ×1": ["pants", "#2a2a2e"],
+  "Black pants ×1": ["pants", "#232326"],
+  "Panjabi · brown leaf pattern ×1": ["panjabi", "#6b4a2f"],
+  "Panjabi · olive geometric ×1": ["panjabi", "#6b6b4e"],
+  "Scarf · red & black ×1": ["scarf2", "#b03a2e"],
+  "Sleeveless sleep sets ×4": ["sleeveless", "#7a7f87"],
+  "Sleep shorts ×3": ["shorts", "#5b6b82"],
+  "Socks ×10 pairs": ["socks", "#c9ccd1"],
+  "Underwear ×10": ["underwear", "#8a8f98"],
+  "Shoes · cyan Adidas ×1": ["sneaker", "#35b6c9"],
+  "Shoes · black sneakers ×1": ["sneaker", "#232326"],
+  "Sandals · buy in BD": ["sandal", "#8a5a33"],
+  "White shoes · buy in BD": ["sneaker", "#f2f2f2"]
+};
+
 var FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLScFv3nkaUPGrkPfbylxTdZWtK8k0KOMi9RI5k5Kw23_KKnfrw/formResponse";
 var state = { who:null, packed:{ Mom:new Set(), Fayek:new Set() }, saving:false };
 
@@ -208,8 +292,14 @@ SECTIONS.forEach(function(sec){
   sec.items.forEach(function(label){
     var parts = label.split(" ×");
     var b = el("button", "tile locked"); b.type = "button";
-    b.appendChild(document.createTextNode(parts[0]));
-    if (parts[1]) b.appendChild(el("span", "n", "×" + parts[1]));
+    var meta = META[label] || ["shirt", "#888888"];
+    var ic = el("span", "gicon");
+    ic.innerHTML = '<svg viewBox="0 0 48 48" style="color:' + meta[1] + '"><use href="#g-' + meta[0] + '"></use></svg>';
+    b.appendChild(ic);
+    var tx = el("span", "ttext");
+    tx.appendChild(document.createTextNode(parts[0]));
+    if (parts[1]) tx.appendChild(el("span", "n", "×" + parts[1]));
+    b.appendChild(tx);
     b.setAttribute("aria-pressed", "false");
     b.addEventListener("click", function(){ toggle(sec, label, b); });
     tileByLabel[label] = b;
