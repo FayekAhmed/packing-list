@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Bangladesh Trip — Packing</title>
+<meta name="description" content="Our packing list for the Bangladesh trip. Tap what you've packed, then save.">
+<meta property="og:title" content="Packing for Bangladesh">
+<meta property="og:description" content="Our packing list for the trip — tap what you've packed, then save.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://fayekahmed.github.io/packing-list/og-image.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+  :root{
+    --bg:#0c0608;
+    --panel:rgb(255 255 255 / .045);
+    --panel-border:rgb(255 255 255 / .09);
+    --text:#f0e6ea;
+    --muted:rgb(240 230 234 / .55);
+    --rose:#d15073;
+    --rose-deep:#8e2f4b;
+    --teal:#2fb3a8;
+    --teal-deep:rgb(43 94 90 / .9);
+    --purple:#6d4fa1;
+    --acc:#d15073;
+    --acc-soft:rgb(209 80 115 / .16);
+    --chip:rgb(139 143 178 / .25);
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ -webkit-text-size-adjust:100%; }
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height:100dvh; padding:20px 16px 120px;
+    background-image:
+      radial-gradient(60% 40% at 15% 0%, rgb(0 165 168 / .13), transparent 70%),
+      radial-gradient(50% 35% at 90% 30%, rgb(109 79 161 / .16), transparent 70%),
+      radial-gradient(70% 45% at 50% 110%, rgb(209 80 115 / .17), transparent 70%);
+    background-attachment:fixed;
+  }
+  .wrap{ max-width:640px; margin:0 auto; }
+  h1{ font-family:Georgia, "Times New Roman", serif; font-weight:600; font-size:30px; letter-spacing:.2px; }
+  .sub{ color:var(--muted); font-size:15px; margin-top:6px; line-height:1.45; }
+  .card{
+    background:var(--panel); border:1px solid var(--panel-border); border-radius:20px;
+    padding:18px; margin-top:18px; backdrop-filter:blur(20px) saturate(125%);
+    -webkit-backdrop-filter:blur(20px) saturate(125%);
+    box-shadow:inset 0 1px 0 rgb(255 255 255 / .06), 0 12px 32px rgb(0 0 0 / .35);
+  }
+  .card h2{ font-family:Georgia, serif; font-size:20px; font-weight:600; }
+  .card h2::before{
+    content:""; display:inline-block; width:10px; height:10px; border-radius:50%;
+    background:var(--acc); margin-right:9px; vertical-align:1px;
+  }
+  .card .who-note{ color:var(--muted); font-size:13.5px; margin-top:4px; }
+  .progress{ font-size:13px; color:var(--muted); margin-top:8px; font-variant-numeric:tabular-nums; }
+  .progress b{ color:var(--text); font-weight:600; }
+  .bar{ height:6px; border-radius:3px; background:rgb(255 255 255 / .08); margin-top:8px; overflow:hidden; }
+  .bar i{ display:block; height:100%; width:0; background:var(--acc); border-radius:3px; transition:width .25s ease-out; }
+  .who-row{ display:flex; gap:10px; margin-top:18px; }
+  .who-chip{
+    flex:1; min-height:52px; border-radius:999px; border:1px solid var(--panel-border);
+    background:var(--chip); color:var(--text); font-size:16px; font-weight:600; cursor:pointer;
+    transition:transform .15s ease-out, background-color .15s ease-out;
+  }
+  #chip-fayek[aria-pressed="true"]{ background:var(--teal-deep); }
+  #chip-mom[aria-pressed="true"]{ background:var(--rose-deep); }
+  .who-chip:active{ transform:scale(.97); }
+  .hint{ color:var(--muted); font-size:14px; margin-top:10px; text-align:center; }
+  .tiles{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px; margin-top:14px; }
+  .tile{
+    position:relative; text-align:left; min-height:64px; padding:12px 40px 12px 14px;
+    border-radius:14px; border:1px solid var(--panel-border); background:rgb(255 255 255 / .03);
+    color:var(--text); font-size:15px; line-height:1.35; cursor:pointer;
+    transition:transform .15s ease-out, background-color .15s ease-out, border-color .15s ease-out;
+  }
+  .tile:active{ transform:scale(.97); }
+  .tile .n{ display:block; font-size:12.5px; color:var(--muted); margin-top:3px; font-variant-numeric:tabular-nums; }
+  .tile.packed{ background:var(--acc-soft); border-color:var(--acc); }
+  .tile.packed::after{
+    content:"✓"; position:absolute; top:10px; right:12px; width:22px; height:22px;
+    border-radius:50%; background:var(--acc); color:#fff; font-size:13px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .tile.locked{ opacity:.45; cursor:default; }
+  .tile.locked:active{ transform:none; }
+  .savebar{
+    position:fixed; left:0; right:0; bottom:0; z-index:10;
+    padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+    background:rgb(12 6 8 / .82); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+    border-top:1px solid var(--panel-border);
+  }
+  .savebar .inner{ max-width:640px; margin:0 auto; }
+  .save-btn{
+    width:100%; min-height:58px; border:none; border-radius:999px; cursor:pointer;
+    background:linear-gradient(180deg, rgb(43 94 90 / .95), rgb(35 78 75 / .95));
+    color:#fff; font-size:17px; font-weight:600;
+    transition:transform .15s ease-out, opacity .15s ease-out;
+  }
+  .save-btn:active{ transform:scale(.98); }
+  .save-btn[disabled]{ opacity:.55; cursor:default; }
+  .save-msg{ text-align:center; font-size:14px; margin-top:9px; min-height:19px; color:var(--muted); }
+  .save-msg.ok{ color:#9fd8d2; font-weight:600; }
+  .save-msg.err{ color:#ff9db4; }
+  .saved-badge{
+    display:none; text-align:center; margin-top:9px; font-weight:700; color:#9fd8d2; font-size:15px;
+  }
+  .saved-badge.show{ display:block; animation:pop .3s ease-out; }
+  @keyframes pop{ 0%{ transform:scale(.9); opacity:0; } 60%{ transform:scale(1.04); } 100%{ transform:scale(1); opacity:1; } }
+  footer{ color:var(--muted); font-size:13px; text-align:center; margin-top:26px; line-height:1.5; }
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; animation:none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Packing for Bangladesh</h1>
+  <p class="sub">Dec 4 – Jan 16. Tap your name, tap everything you've packed, then tap Save. Your ticks are saved so we can both see what's done.</p>
+
+  <div class="who-row" role="group" aria-label="Who are you">
+    <button type="button" class="who-chip" id="chip-mom" aria-pressed="false">Ammu · Long Island</button>
+    <button type="button" class="who-chip" id="chip-fayek" aria-pressed="false">Fayek · Rochester</button>
+  </div>
+  <p class="hint" id="who-hint">Tap your name first — then tap the things you've packed.</p>
+
+  <div id="sections"></div>
+
+  <footer>One checked bag each, plus a cabin bag.<br>The black dress shirt still needs finding at home.</footer>
+</div>
+
+<div class="savebar">
+  <div class="inner">
+    <button type="button" class="save-btn" id="save-btn">Save my packing</button>
+    <div class="saved-badge" id="saved-badge">✓ Saved</div>
+    <p class="save-msg" id="save-msg" role="status"></p>
+  </div>
+</div>
+
+<form id="gf" method="POST" target="gf_iframe" style="display:none" aria-hidden="true">
+  <input type="hidden" name="entry.1634591599" id="f-who">
+  <input type="hidden" name="entry.362100726" id="f-packed">
+</form>
+<iframe name="gf_iframe" id="gf_iframe" style="display:none" title="save"></iframe>
+
+<script>
+"use strict";
+/* The packing list — one entry per garment line. `owner` says whose Save
+   carries it: Mom saves the Long Island + Bangladesh sections, Fayek saves
+   the Rochester section. Labels are the saved values, so keep them exact. */
+var SECTIONS = [
+  { id:"li", title:"Ammu packs · Long Island", owner:"Mom", acc:"#d15073", accSoft:"rgb(209 80 115 / .16)",
+    note:"Everything of Fayek's that's at home in Ronkonkoma.",
+    items:[
+      "Dress shirt · cream ×1", "Dress shirt · red ×1", "Dress shirt · light gray ×1",
+      "Dress shirt · black ×1 (needs finding)", "Full-sleeve top · white ×1", "Full-sleeve top · black ×1",
+      "T-shirt · white ×1", "T-shirt · black ×1", "T-shirt · gray ×1", "T-shirt · cream-yellow ×1",
+      "Sleep shorts ×2", "Scarf · brown shades ×1", "Turtleneck · cream ×1",
+      "Pants · white ×1", "Pants · cream ×1", "Pants · brown ×1",
+      "Dress pants · green (wedding) ×1", "Dress pants · blue ×1",
+      "Panjabi · Jumu'ah slate blue-gray ×1", "Brown long coat ×1",
+      "Denim jacket · light blue ×1", "Plaid shacket ×1", "White HUGO puffer ×1",
+      "Shoes · brown loafers ×1", "Shoes · black dress shoe ×1"
+    ] },
+  { id:"roc", title:"Fayek packs · Rochester", owner:"Fayek", acc:"#2fb3a8", accSoft:"rgb(0 165 168 / .14)",
+    note:"Everything Fayek brings down from Rochester himself.",
+    items:[
+      "Full-sleeve top · reddish brown ×1", "Sweatshirt · green ×1", "Sweatshirt · red ×1",
+      "Turtleneck · black ×1", "Sweatpants · gray ×1", "Sweatpants · gray wool-lined ×1",
+      "Sweatpants · black ×3", "Black khakis ×1", "Black pants ×1",
+      "Panjabi · brown leaf pattern ×1", "Panjabi · olive geometric ×1",
+      "Scarf · red & black ×1", "Sleeveless sleep sets ×4", "Sleep shorts ×3",
+      "Socks ×10 pairs", "Underwear ×10", "Shoes · cyan Adidas ×1", "Shoes · black sneakers ×1"
+    ] },
+  { id:"bd", title:"Once he lands · Bangladesh", owner:"Mom", acc:"#6d4fa1", accSoft:"rgb(109 79 161 / .18)",
+    note:"To buy in Bangladesh after he lands.",
+    items:[ "Sandals · buy in BD", "White shoes · buy in BD" ] }
+];
+
+var FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLScFv3nkaUPGrkPfbylxTdZWtK8k0KOMi9RI5k5Kw23_KKnfrw/formResponse";
+var state = { who:null, packed:{ Mom:new Set(), Fayek:new Set() }, saving:false };
+
+function el(tag, cls, text){
+  var e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+}
+function ownerSections(who){ return SECTIONS.filter(function(s){ return s.owner === who; }); }
+function allItems(who){
+  var out = [];
+  ownerSections(who).forEach(function(s){ s.items.forEach(function(i){ out.push(i); }); });
+  return out;
+}
+
+/* Render the sections + tiles from the data, so markup never duplicates it. */
+var sectionsRoot = document.getElementById("sections");
+var tileByLabel = {};
+SECTIONS.forEach(function(sec){
+  var card = el("section", "card");
+  card.style.setProperty("--acc", sec.acc);
+  card.style.setProperty("--acc-soft", sec.accSoft);
+  card.appendChild(el("h2", null, sec.title));
+  card.appendChild(el("p", "who-note", sec.note));
+  var prog = el("p", "progress"); prog.id = "prog-" + sec.id; card.appendChild(prog);
+  var bar = el("div", "bar"); var fill = el("i"); fill.id = "bar-" + sec.id; bar.appendChild(fill); card.appendChild(bar);
+  var grid = el("div", "tiles");
+  sec.items.forEach(function(label){
+    var parts = label.split(" ×");
+    var b = el("button", "tile locked"); b.type = "button";
+    b.appendChild(document.createTextNode(parts[0]));
+    if (parts[1]) b.appendChild(el("span", "n", "×" + parts[1]));
+    b.setAttribute("aria-pressed", "false");
+    b.addEventListener("click", function(){ toggle(sec, label, b); });
+    tileByLabel[label] = b;
+    grid.appendChild(b);
+  });
+  card.appendChild(grid);
+  sectionsRoot.appendChild(card);
+});
+
+function refresh(){
+  SECTIONS.forEach(function(sec){
+    var set = state.packed[sec.owner];
+    var done = 0;
+    sec.items.forEach(function(label){
+      var b = tileByLabel[label], on = set.has(label);
+      if (on) done++;
+      b.classList.toggle("packed", on);
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+      b.classList.toggle("locked", !state.who || state.who !== sec.owner);
+    });
+    var p = document.getElementById("prog-" + sec.id);
+    p.textContent = "";
+    var bEl = el("b", null, done + " of " + sec.items.length + " packed");
+    p.appendChild(bEl);
+    document.getElementById("bar-" + sec.id).style.width = (sec.items.length ? (done / sec.items.length) * 100 : 0) + "%";
+  });
+  document.getElementById("chip-mom").setAttribute("aria-pressed", state.who === "Mom" ? "true" : "false");
+  document.getElementById("chip-fayek").setAttribute("aria-pressed", state.who === "Fayek" ? "true" : "false");
+  document.getElementById("who-hint").textContent = state.who
+    ? "Saving as " + (state.who === "Mom" ? "Ammu" : "Fayek") + " — tap your tiles, then Save."
+    : "Tap your name first — then tap the things you've packed.";
+}
+
+function toggle(sec, label, btn){
+  if (!state.who) { setMsg("Tap your name at the top first.", "err"); return; }
+  if (state.who !== sec.owner) {
+    setMsg("Those are " + (sec.owner === "Mom" ? "Ammu's" : "Fayek's") + " to pack — yours are in your section.", "err");
+    return;
+  }
+  var set = state.packed[state.who];
+  if (set.has(label)) set.delete(label); else set.add(label);
+  hideBadge();
+  refresh();
+}
+
+function pickWho(who){
+  state.who = who;
+  hideBadge(); setMsg("", null);
+  refresh();
+}
+document.getElementById("chip-mom").addEventListener("click", function(){ pickWho("Mom"); });
+document.getElementById("chip-fayek").addEventListener("click", function(){ pickWho("Fayek"); });
+
+/* Load the last saved state (filed from the form responses) and pre-tick. */
+fetch("state.json?ts=" + Date.now(), { cache:"no-store" })
+  .then(function(r){ return r.ok ? r.json() : null; })
+  .then(function(data){
+    if (data) ["Mom", "Fayek"].forEach(function(w){
+      (data[w.toLowerCase()] || []).forEach(function(label){
+        if (tileByLabel[label]) state.packed[w].add(label);
+      });
+    });
+    refresh();
+  })
+  .catch(function(){ refresh(); });
+refresh();
+
+/* Save: post invisibly to the form backend; count it saved only when the
+   hidden iframe confirms the response went through. */
+var msgEl = document.getElementById("save-msg");
+var badgeEl = document.getElementById("saved-badge");
+var saveBtn = document.getElementById("save-btn");
+function setMsg(t, kind){ msgEl.textContent = t; msgEl.className = "save-msg" + (kind ? " " + kind : ""); }
+function hideBadge(){ badgeEl.classList.remove("show"); }
+
+var iframe = document.getElementById("gf_iframe");
+var saveTimer = null;
+iframe.addEventListener("load", function(){
+  if (!state.saving) return;
+  state.saving = false;
+  clearTimeout(saveTimer);
+  saveBtn.disabled = false;
+  setMsg("", null);
+  badgeEl.classList.add("show");
+});
+
+saveBtn.addEventListener("click", function(){
+  if (state.saving) return;
+  if (!state.who) { setMsg("Tap your name at the top first, so we know whose packing this is.", "err"); return; }
+  var items = allItems(state.who).filter(function(l){ return state.packed[state.who].has(l); });
+  document.getElementById("f-who").value = state.who;
+  document.getElementById("f-packed").value = items.join(", ");
+  var form = document.getElementById("gf");
+  form.action = FORM_ACTION;
+  state.saving = true;
+  saveBtn.disabled = true;
+  hideBadge();
+  setMsg("Saving…", null);
+  saveTimer = setTimeout(function(){
+    if (!state.saving) return;
+    state.saving = false;
+    saveBtn.disabled = false;
+    setMsg("Couldn't confirm the save — check your connection and tap Save again.", "err");
+  }, 10000);
+  form.submit();
+});
+</script>
+</body>
+</html>
